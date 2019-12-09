@@ -1,0 +1,28 @@
+@charset "UTF-8";
+.question {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 1rem;
+}
+
+.question + .question {
+  margin-top: 1em;
+}
+
+.question__color {
+  width: 1em;
+  height: 1em;
+}
+
+.question__answers {
+  position: relative;
+  padding-right: 2em;
+}
+
+.question__checkbox.isActive:checked ~ .question__result:after {
+  content: "✅";
+  position: absolute;
+  font-size: 2em;
+}
+/*# sourceMappingURL=questions.css.map */
