@@ -1,6 +1,7 @@
 import { template } from './visual.js';
+export const TAG = 'questions'
 
-Vue.component('questions', {
+Vue.component(TAG, {
   template,
   props: ['questions'],
   methods: {

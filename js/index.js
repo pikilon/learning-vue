@@ -1,12 +1,12 @@
 
-import './components/questions/index.js';
+import { TAG as tagQuestion } from './components/questions/index.js';
 
 
 var app = new Vue({
   el: '#app',
   template: //html
   `<div>
-    <questions v-bind:questions="questions"/>
+    <${tagQuestion} v-bind:questions="questions"/>
   </div>`,
   data: {
     message: 'Hola Vue!',

@@ -1,4 +1,4 @@
-import '../v-style.js'
+import {TAG as vStyle} from '../v-style.js'
 export const selectors = {
   question: 'question',
   question__color: 'question__color',
@@ -9,8 +9,6 @@ const s = selectors;
 export const style = //css
 `
   .${s.question} {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
     font-size: 1rem;
   }
@@ -30,6 +28,7 @@ export const style = //css
 export const template = // html
 `
 <ul>
+  <${vStyle}>${style}</${vStyle}>
   <li class="${s.question}" v-for="(question, index) in questions">
     <span class="${s.question__color}" v-bind:style="{backgroundColor: question.color}"></span>
     <div class="${s.question__answers}">
@@ -39,7 +38,6 @@ export const template = // html
       </label>
       <span v-if="questions[index].answer" className="${s.question__result}">{{questions[index].answer === questions[index].right ? '✅' : '❌' }}</span>
     </div>
-    <v-style>${style}</v-style>
 
   </li>
 </ul>
