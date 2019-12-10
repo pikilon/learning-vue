@@ -32,13 +32,12 @@ export const template = // html
   <li class="${s.question}" v-for="(question, index) in questions">
     <span class="${s.question__color}" v-bind:style="{backgroundColor: question.color}"></span>
     <div class="${s.question__answers}">
-      <label v-for="answer in questions">
-        <input type="radio" v-model="questions[index].answer" :value="answer.right" class="${s.question__checkbox}">
-        {{answer.right}}
+      <label v-for="answer in answers">
+        <input type="radio" v-model="questions[index].answer" :value="answer" class="${s.question__checkbox}">
+        {{answer}}
       </label>
       <span v-if="questions[index].answer" className="${s.question__result}">{{questions[index].answer === questions[index].right ? '✅' : '❌' }}</span>
     </div>
-
   </li>
 </ul>
 `
