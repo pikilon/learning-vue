@@ -26,20 +26,21 @@ Vue.component(TAG, {
     },
     showRight() {
       if (!this.isImageType()) return this.question.type && this.question.question
-      return this.isImageQuestionReady();
+      return this.isImageQuestionReady()
 
 
     },
     resetQuestion() {
-      const { type } = this.question;
-      this.question = defaultQuestion();
-      this.question.type = type;
+      const { type } = this.question
+      this.question = defaultQuestion()
+      this.question.type = type
     },
     isAnswerRight (index) {
       return this.answers[index] === answer
     },
     submitQuestion() {
-      this.$emit('newQuestion', this.question)
+      this.$emit('newQuestion', {...this.question })
+      this.resetQuestion()
     }
   },
 })

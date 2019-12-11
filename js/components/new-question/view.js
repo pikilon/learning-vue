@@ -31,9 +31,6 @@ export const template = // html
     <div class="control" v-if="question.type && question.question && question.right">
       <button class="button is-link" @click="submitQuestion">Add it</button>
     </div>
-    <textarea name="" id="" cols="30" rows="10">
-    {{JSON.stringify(question,  null, 4)}}
-    </textarea>
   </div>
 </div>
 `
