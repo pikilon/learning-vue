@@ -1,8 +1,8 @@
 
 import { TAG as tagQuestion } from './components/questions/index.js'
 import { TAG as newQuestion } from './components/new-question/index.js'
-import { QUESTION_TYPES } from './constants.js'
-
+import { QUESTION_TYPES, LOCAL_STORAGE_KEYS } from './constants.js'
+import { localStorageSet, localStorageGetInitialize } from './utilities/localStorage.js'
 
 var app = new Vue({
   el: '#app',
@@ -13,17 +13,16 @@ var app = new Vue({
   </div>`,
   data: {
     message: 'Hola Vue!',
-    questions: [
-      { type: QUESTION_TYPES.COLOR, question: 'green', right: 'verde'},
-      { type: QUESTION_TYPES.COLOR, question: 'blue', right: 'azul'},
-      { type: QUESTION_TYPES.COLOR, question: 'yellow', right: 'amarillo'},
-      { type: QUESTION_TYPES.COLOR, question: 'purple', right: 'Púrpura'},
-    ],
-
+    questions: localStorageGetInitialize(LOCAL_STORAGE_KEYS.QUESTIONS, [])
+    ,
+  },
+  mounted() {
+    console.log('JSON.parse(JSON.stringify(this.questions)', JSON.parse(JSON.stringify(this.questions)));
   },
   methods: {
     addQuestion(question) {
       this.questions.push(question)
+      localStorageSet(LOCAL_STORAGE_KEYS.QUESTIONS, this.questions)
     },
     isAnswerRight (index) {
       return this.answers[index] === answer

@@ -3,3 +3,7 @@ export const QUESTION_TYPES = {
   IMAGE: 'image',
   TEXT: 'text',
 }
+
+export const LOCAL_STORAGE_KEYS = {
+  QUESTIONS: 'QUESTIONS'
+}
