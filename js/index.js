@@ -1,6 +1,7 @@
 
-import { TAG as tagQuestion } from './components/questions/index.js';
-import { QUESTION_TYPES } from './constants.js';
+import { TAG as tagQuestion } from './components/questions/index.js'
+import { TAG as newQuestion } from './components/new-question/index.js'
+import { QUESTION_TYPES } from './constants.js'
 
 
 var app = new Vue({
@@ -8,18 +9,22 @@ var app = new Vue({
   template: //html
   `<div>
     <${tagQuestion} v-bind:questions="questions"/>
+    <${newQuestion} @newQuestion="addQuestion($event)"/>
   </div>`,
   data: {
     message: 'Hola Vue!',
     questions: [
-      { type: QUESTION_TYPES.COLOR, color: 'green', right: 'verde'},
-      { type: QUESTION_TYPES.COLOR, color: 'blue', right: 'azul'},
-      { type: QUESTION_TYPES.COLOR, color: 'yellow', right: 'amarillo'},
-      { type: QUESTION_TYPES.COLOR, color: 'purple', right: 'Púrpura'},
+      { type: QUESTION_TYPES.COLOR, question: 'green', right: 'verde'},
+      { type: QUESTION_TYPES.COLOR, question: 'blue', right: 'azul'},
+      { type: QUESTION_TYPES.COLOR, question: 'yellow', right: 'amarillo'},
+      { type: QUESTION_TYPES.COLOR, question: 'purple', right: 'Púrpura'},
     ],
 
   },
   methods: {
+    addQuestion(question) {
+      this.questions.push(question)
+    },
     isAnswerRight (index) {
       return this.answers[index] === answer
     }
