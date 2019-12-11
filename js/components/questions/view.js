@@ -24,7 +24,7 @@ export const style = //css
 
 export const template = // html
 `
-<section>
+<section class="container">
   <${vStyle}>${style}</${vStyle}>
   <article class="${s.question} box" v-for="(question, index) in questions">
     <div class="media">
@@ -38,10 +38,10 @@ export const template = // html
         </label>
       </div>
       <div class="media-right ${s.question__result}" v-if="questions[index].answer">
-        {{questions[index].answer === questions[index].right ? '✅' : '❌' }}
+        {{isAnswerRight(index) ? '✅' : '❌' }}
       </div>
   </div>
 
   </article>
-</section>
+</sectionn>
 `

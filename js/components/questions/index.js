@@ -13,7 +13,9 @@ Vue.component(TAG, {
   },
   methods: {
     isAnswerRight (index) {
-      return this.answers[index] === answer
+      const question = this.questions[index]
+
+      return question.answer === question.right
     }
   },
 })
