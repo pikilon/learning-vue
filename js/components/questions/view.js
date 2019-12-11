@@ -15,7 +15,7 @@ const cssVars = {
 export const style = //css
 `
   .${s.question__result} {
-    font-size: ${cssVars.colorSize};
+    font-size: 2rem;
   }
   .${s.question__color} {
     display: block;
@@ -28,22 +28,36 @@ export const template = // html
 `
 <section class="container">
   <${vStyle}>${style}</${vStyle}>
-  <article class="${s.question} box" v-for="(question, index) in questions">
-    <div class="media">
-      <div class="media-left">
-        <span v-if="question.type === '${QUESTION_TYPES.COLOR}'" class="${s.question__color}" :style="{backgroundColor: question.question}"></span>
-      </div>
-      <div class="media-center">
-        <label v-for="answer in answers" class="${s.question__answer} is-block">
-          <input type="radio" v-model="questions[index].answer" :value="answer" class="${s.question__checkbox}">
-          {{answer}}
-        </label>
-      </div>
-      <div class="media-right ${s.question__result}" v-if="questions[index].answer">
-        {{isAnswerRight(index) ? '✅' : '❌' }}
-      </div>
-  </div>
+  <div class="columns is-multiline">
 
-  </article>
+    <article class="${s.question} column is-one-third" v-for="(question, index) in questions">
+      <div class="box">
+        <div class="columns is-vcentered">
+        <div class="column">
+          <button class="button" @click="removeQuestionIndex(index)">
+            <span class="icon">
+              <i class="fas fa-trash"></i>
+            </span>
+          </button>
+        </div>
+          <div class="column">
+            <span v-if="question.type === '${QUESTION_TYPES.COLOR}'" class="${s.question__color}" :style="{backgroundColor: question.question}"></span>
+          </div>
+          <div class="column">
+            <label v-for="answer in answers" class="${s.question__answer} is-block">
+              <input type="radio" v-model="questions[index].answer" :value="answer" class="${s.question__checkbox}">
+              {{answer}}
+            </label>
+          </div>
+          <div class="column ${s.question__result}" v-if="questions[index].answer">
+            <span :class="getIconColor(questions[index])">
+              <i :class="getIconShape(questions[index])"></i>
+            </span>
+          </div>
+      </div>
+      </div>
+
+    </article>
+  </div>
 </section>
 `

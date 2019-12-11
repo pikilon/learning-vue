@@ -8,7 +8,7 @@ var app = new Vue({
   el: '#app',
   template: //html
   `<div>
-    <${tagQuestion} v-bind:questions="questions"/>
+    <${tagQuestion} v-bind:questions="questions" @removeQuestionIndex="removeQuestionIndex($event)" />
     <${newQuestion} @newQuestion="addQuestion($event)"/>
   </div>`,
   data: {
@@ -16,13 +16,28 @@ var app = new Vue({
     questions: localStorageGetInitialize(LOCAL_STORAGE_KEYS.QUESTIONS, [])
     ,
   },
-  mounted() {
-    console.log('JSON.parse(JSON.stringify(this.questions)', JSON.parse(JSON.stringify(this.questions)));
-  },
   methods: {
+    store() {
+      localStorageSet(LOCAL_STORAGE_KEYS.QUESTIONS, this.questions.map(({answer, ...rest}) => rest))
+    },
     addQuestion(question) {
       this.questions.push(question)
-      localStorageSet(LOCAL_STORAGE_KEYS.QUESTIONS, this.questions)
+      this.store()
+    },
+    removeQuestions(indexesArray) {
+        const newQuestions = this.questions.reduce(
+          (result, question, index) => {
+            if (!indexesArray.includes(index)) result.push(question)
+            return result
+          },
+          []
+        )
+        this.questions = newQuestions
+        this.store()
+
+    },
+    removeQuestionIndex(questionIndex) {
+      this.removeQuestions([questionIndex])
     },
     isAnswerRight (index) {
       return this.answers[index] === answer

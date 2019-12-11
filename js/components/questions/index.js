@@ -19,10 +19,20 @@ Vue.component(TAG, {
 
   },
   methods: {
+    isQuestionRight(question) { return question.answer === question.right },
     isAnswerRight (index) {
       const question = this.questions[index]
 
       return question.answer === question.right
+    },
+    removeQuestionIndex (index) {
+      this.$emit('removeQuestionIndex', index)
+    },
+    getIconColor (question) {
+      return ['icon', this.isQuestionRight(question) ? 'has-text-success' : 'has-text-danger']
+    },
+    getIconShape (question) {
+      return ['fas', this.isQuestionRight(question) ? 'fa-check' : 'fa-times']
     }
   },
 })
