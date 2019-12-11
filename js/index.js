@@ -1,5 +1,6 @@
 
 import { TAG as tagQuestion } from './components/questions/index.js';
+import { QUESTION_TYPES } from './constants.js';
 
 
 var app = new Vue({
@@ -11,10 +12,10 @@ var app = new Vue({
   data: {
     message: 'Hola Vue!',
     questions: [
-      { color: 'green', right: 'verde'},
-      { color: 'blue', right: 'azul'},
-      { color: 'yellow', right: 'amarillo'},
-      { color: 'purple', right: 'Púrpura'},
+      { type: QUESTION_TYPES.COLOR, color: 'green', right: 'verde'},
+      { type: QUESTION_TYPES.COLOR, color: 'blue', right: 'azul'},
+      { type: QUESTION_TYPES.COLOR, color: 'yellow', right: 'amarillo'},
+      { type: QUESTION_TYPES.COLOR, color: 'purple', right: 'Púrpura'},
     ],
 
   },

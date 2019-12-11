@@ -1,4 +1,6 @@
+import { QUESTION_TYPES } from '../../constants.js'
 import {TAG as vStyle} from '../v-style.js'
+
 export const selectors = {
   question: 'question',
   question__color: 'question__color',
@@ -29,7 +31,7 @@ export const template = // html
   <article class="${s.question} box" v-for="(question, index) in questions">
     <div class="media">
       <div class="media-left">
-        <span class="${s.question__color}" v-bind:style="{backgroundColor: question.color}"></span>
+        <span v-if="question.type === '${QUESTION_TYPES.COLOR}'" class="${s.question__color}" :style="{backgroundColor: question.color}"></span>
       </div>
       <div class="media-center">
         <label v-for="answer in answers" class="${s.question__answer} is-block">
@@ -43,5 +45,5 @@ export const template = // html
   </div>
 
   </article>
-</sectionn>
+</section>
 `
