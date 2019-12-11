@@ -11,6 +11,13 @@ Vue.component(TAG, {
       answers: arrayShuffle(this.questions.map(({right}) => right))
     }
   },
+  watch: {
+    questions() {
+      if (this.answers.length === this.questions.length) return this.answers
+      this.answers = arrayShuffle(this.questions.map(({right}) => right))
+    }
+
+  },
   methods: {
     isAnswerRight (index) {
       const question = this.questions[index]
