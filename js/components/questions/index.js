@@ -1,9 +1,10 @@
 import { template } from './view.js';
 import { arrayShuffle } from '../../utilities/arrayShuffle.js';
-export const TAG = 'questions'
+import vstyle from '../v-style.js'
 
 
-Vue.component(TAG, {
+export default Vue.extend({
+  components: { vstyle },
   template,
   props: ['questions'],
   data() {

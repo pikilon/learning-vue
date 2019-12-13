@@ -1,15 +1,16 @@
 
-import { TAG as tagQuestion } from './components/questions/index.js'
-import { TAG as newQuestion } from './components/new-question/index.js'
+import questions from './components/questions/index.js'
+import newQuestion from './components/new-question/index.js'
 import { QUESTION_TYPES, LOCAL_STORAGE_KEYS } from './constants.js'
 import { localStorageSet, localStorageGetInitialize } from './utilities/localStorage.js'
 
 var app = new Vue({
+  components: { questions, newQuestion },
   el: '#app',
   template: //html
   `<div>
-    <${tagQuestion} v-bind:questions="questions" @removeQuestionIndex="removeQuestionIndex($event)" />
-    <${newQuestion} @newQuestion="addQuestion($event)"/>
+    <questions v-bind:questions="questions" @removeQuestionIndex="removeQuestionIndex($event)" />
+    <newQuestion @newQuestion="addQuestion($event)"/>
   </div>`,
   data: {
     message: 'Hola Vue!',

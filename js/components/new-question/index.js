@@ -1,10 +1,9 @@
 import { QUESTION_TYPES } from '../../constants.js'
 import { template } from './view.js'
-export const TAG = 'new-question'
 
 const defaultQuestion = () => ({ type: '', question: '', right: ''})
 
-Vue.component(TAG, {
+export default Vue.extend({
   template,
   data() {
     return {

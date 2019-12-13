@@ -1,5 +1,4 @@
 import { QUESTION_TYPES } from '../../constants.js'
-import {TAG as vStyle} from '../v-style.js'
 
 export const selectors = {
   question: 'question',
@@ -27,7 +26,7 @@ export const style = //css
 export const template = // html
 `
 <section class="container">
-  <${vStyle}>${style}</${vStyle}>
+  <vstyle>${style}</vstyle>
   <div class="columns is-multiline">
 
     <article class="${s.question} column is-one-third" v-for="(question, index) in questions">
