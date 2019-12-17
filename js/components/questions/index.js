@@ -1,10 +1,13 @@
-import { template } from './view.js';
+import { template, style } from './view.js';
 import { arrayShuffle } from '../../utilities/arrayShuffle.js';
 import vstyle from '../v-style.js'
 
 
 export default Vue.extend({
   components: { vstyle },
+  beforeCreate() {
+    this.$emit('addStyle', {key: 'questions', styleString: style })
+  },
   template,
   props: ['questions'],
   data() {

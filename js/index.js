@@ -11,13 +11,11 @@ var app = new Vue({
   template: //html
   `<div>
     <vstyle>{{allStyles}}</vstyle>
-    <questions v-bind:questions="questions" @removeQuestionIndex="removeQuestionIndex($event)" />
-    <newQuestion @newQuestion="addQuestion($event)"/>
+    <questions v-bind:questions="questions" @removeQuestionIndex="removeQuestionIndex($event)" @addStyle="addStyle($event.key, $event.styleString)"/>
+    <newQuestion @newQuestion="addQuestion"/>
   </div>`,
   data: {
-    stylesDictionary: {
-      test: 'body { background: blue }',
-    },
+    stylesDictionary: {},
     message: 'Hola Vue!',
     questions: localStorageGetInitialize(LOCAL_STORAGE_KEYS.QUESTIONS, [])
     ,
@@ -47,12 +45,12 @@ var app = new Vue({
     },
     isAnswerRight (index) {
       return this.answers[index] === answer
-    }
+    },
+    addStyle(key, styleString) { this.stylesDictionary[key] = styleString },
+    deleteStyle(key) { delete this.stylesDictionary[key] },
   },
   computed: {
     randomAnswer(rightAnswer) { return this.questions.map(({answer}) => ({ answer, isRightAnswer: answer === rightAnswer })) },
     allStyles() { return Object.values(this.stylesDictionary).join('\n\n')},
-    addStyle(key, styleString) { this.stylesDictionary[key] = styleString },
-    deleteStyle(key) { delete this.stylesDictionary[key] },
   }
 })
