@@ -26,7 +26,6 @@ export const style = //css
 export const template = // html
 `
 <section class="container">
-  <vstyle>${style}</vstyle>
   <div class="columns is-multiline">
 
     <article class="${s.question} column is-one-third" v-for="(question, index) in questions">
