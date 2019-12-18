@@ -5,24 +5,20 @@ import { QUESTION_TYPES, LOCAL_STORAGE_KEYS } from './constants.js'
 import { localStorageSet, localStorageGetInitialize } from './utilities/localStorage.js'
 import vstyle from './components/v-style.js'
 import { cloneToObject } from './utils/cloneToObject.js'
+import { store } from './store/index.js'
 
 var app = new Vue({
   components: { questions, newQuestion, vstyle },
   el: '#app',
+  store,
   template: //html
   `<div class="container">
-    <vstyle>{{allStyles}}</vstyle>
-    <questions v-if="questions.length && questionsComponents >= 1" v-bind:questions="questions" @removeQuestionIndex="removeQuestionIndex($event)" @addStyle="addStyle($event)"/>
+    <vstyle>{{$store.getters.allCss}}</vstyle>
+    <questions v-if="questions.length" v-bind:questions="questions" />
     <newQuestion @newQuestion="addQuestion"/>
-    <questions v-if="questions.length && questionsComponents >= 2" v-bind:questions="questions" @removeQuestionIndex="removeQuestionIndex($event)" @addStyle="addStyle($event)"/>
-    <button @click="questionsComponents--">remove one question</button>
   </div>`,
   data(){ return {
-    stylesDictionary: {},
-    questionsComponents: 2,
-    message: 'Hola Vue!',
-    questions: localStorageGetInitialize(LOCAL_STORAGE_KEYS.QUESTIONS, [])
-    ,
+    questions: localStorageGetInitialize(LOCAL_STORAGE_KEYS.QUESTIONS, []),
   }},
   methods: {
     store() {
@@ -50,25 +46,6 @@ var app = new Vue({
     isAnswerRight (index) {
       return this.answers[index] === answer
     },
-    addStyle(event) {
-      const {key, styleString} = event
-      const newStyles = cloneToObject(this.stylesDictionary)
-      if (newStyles[key]) {
-        newStyles[key].counter++
-      } else {
-        newStyles[key] = { counter: 1, styleString }
-      }
-      this.stylesDictionary = newStyles
-    },
-    deleteStyle(key) {
-      if (!this.stylesDictionary[key]) return
-      if (this.stylesDictionary[key].counter <= 1) {
-        delete this.stylesDictionary[key]
-      } else {
-        this.stylesDictionary[key].counter = this.stylesDictionary[key].counter - 1
-      }
-
-     },
   },
   computed: {
     randomAnswer(rightAnswer) { return this.questions.map(({answer}) => ({ answer, isRightAnswer: answer === rightAnswer })) },

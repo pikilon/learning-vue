@@ -2,11 +2,15 @@ import { template, style } from './view.js';
 import { arrayShuffle } from '../../utilities/arrayShuffle.js';
 import vstyle from '../v-style.js'
 
-
+const name = 'questions'
 export default Vue.extend({
+  name,
   components: { vstyle },
   beforeCreate() {
-    this.$emit('addStyle', {key: 'questions', styleString: style })
+    this.$store.commit('addCss', {key: name, styleString: style })
+  },
+  destroyed() {
+    this.$store.commit('removeCss', name)
   },
   template,
   props: ['questions'],
