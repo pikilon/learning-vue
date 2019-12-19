@@ -1,11 +1,9 @@
 import { template, style } from './view.js';
 import { arrayShuffle } from '../../utilities/arrayShuffle.js';
-import vstyle from '../v-style.js'
 
 const name = 'questions'
 export default Vue.extend({
   name,
-  components: { vstyle },
   beforeCreate() {
     this.$store.commit('css_add', {key: name, styleString: style })
   },

@@ -3,17 +3,17 @@ import questions from './components/questions/index.js'
 import newQuestion from './components/new-question/index.js'
 import { QUESTION_TYPES, LOCAL_STORAGE_KEYS } from './constants.js'
 import { localStorageSet, localStorageGetInitialize } from './utilities/localStorage.js'
-import vstyle from './components/v-style.js'
+import styles from './components/all-styles.js'
 import { cloneToObject } from './utils/cloneToObject.js'
 import { store } from './store/index.js'
 
 var app = new Vue({
-  components: { questions, newQuestion, vstyle },
+  components: { questions, newQuestion, styles },
   el: '#app',
   store,
   template: //html
   `<div class="container">
-    <vstyle>{{$store.getters.css_all}}</vstyle>
+    <styles />
     <questions v-if="questions.length" v-bind:questions="questions" />
     <newQuestion @newQuestion="addQuestion"/>
   </div>`,
