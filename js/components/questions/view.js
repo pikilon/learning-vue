@@ -1,13 +1,13 @@
 import { QUESTION_TYPES } from '../../constants.js'
 
-export const selectors = {
+export const cssSelectors = {
   question: 'question',
   question__color: 'question__color',
   question__answer: 'question__answer',
   question__result: 'question__result',
   question__checkbox: 'question__checkbox',
 }
-const s = selectors;
+const s = cssSelectors;
 const cssVars = {
   colorSize: '3rem',
 }

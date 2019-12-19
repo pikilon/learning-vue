@@ -1,10 +1,12 @@
-import { template, style } from './view.js';
+import { template, style as css } from './view.js';
 import { arrayShuffle } from '../../utilities/arrayShuffle.js';
-import cssLifeCycle from '../../vue-decorators/cssLifeCycle.js';
+import cssMixin from '../../mixins/css.js'
 
 const name = 'questions'
-export default Vue.extend(cssLifeCycle(style, {
+export default Vue.extend({
   name,
+  css,
+  mixins: [cssMixin],
   template,
   props: ['questions'],
   data() {
@@ -36,4 +38,4 @@ export default Vue.extend(cssLifeCycle(style, {
       return ['fas', this.isQuestionRight(question) ? 'fa-check' : 'fa-times']
     }
   },
-}))
+})
