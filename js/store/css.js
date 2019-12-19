@@ -1,8 +1,8 @@
 import { cloneToObject } from '../utils/cloneToObject.js'
 
-const store = {css: {body: { counter: 1, styleString: 'body {background: aqua}'}}}
+const store = {}
 const mutations = {
-  addCss(state, event) {
+  css_add: function(state, event) {
     const {key, styleString} = event
     const newStyles = cloneToObject(state.css)
     if (newStyles[key]) {
@@ -12,7 +12,7 @@ const mutations = {
     }
     state.css = newStyles
   },
-  removeCss(state, key) {
+  css_remove: function(state, key) {
     if (!state.css[key]) return
     const newStyles = cloneToObject(state.css)
     if (newStyles[key].counter <= 1) {
@@ -25,7 +25,7 @@ const mutations = {
 }
 
 const getters = {
-  allCss: state => Object.values(state.css).map(({styleString}) => styleString).join('\n\n')
+  css_all: state => Object.values(state.css).map(({styleString}) => styleString).join('\n\n')
 }
 
 export default {

@@ -13,7 +13,7 @@ var app = new Vue({
   store,
   template: //html
   `<div class="container">
-    <vstyle>{{$store.getters.allCss}}</vstyle>
+    <vstyle>{{$store.getters.css_all}}</vstyle>
     <questions v-if="questions.length" v-bind:questions="questions" />
     <newQuestion @newQuestion="addQuestion"/>
   </div>`,

@@ -7,10 +7,10 @@ export default Vue.extend({
   name,
   components: { vstyle },
   beforeCreate() {
-    this.$store.commit('addCss', {key: name, styleString: style })
+    this.$store.commit('css_add', {key: name, styleString: style })
   },
   destroyed() {
-    this.$store.commit('removeCss', name)
+    this.$store.commit('css_remove', name)
   },
   template,
   props: ['questions'],
