@@ -1,15 +1,10 @@
 import { template, style } from './view.js';
 import { arrayShuffle } from '../../utilities/arrayShuffle.js';
+import cssLifeCycle from '../../vue-decorators/cssLifeCycle.js';
 
 const name = 'questions'
-export default Vue.extend({
+export default Vue.extend(cssLifeCycle(style, {
   name,
-  beforeCreate() {
-    this.$store.commit('css_add', {key: name, styleString: style })
-  },
-  destroyed() {
-    this.$store.commit('css_remove', name)
-  },
   template,
   props: ['questions'],
   data() {
@@ -41,4 +36,4 @@ export default Vue.extend({
       return ['fas', this.isQuestionRight(question) ? 'fa-check' : 'fa-times']
     }
   },
-})
+}))
