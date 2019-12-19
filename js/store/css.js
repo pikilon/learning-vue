@@ -1,35 +1,42 @@
 import { cloneToObject } from '../utils/cloneToObject.js'
-
-const store = {}
-const mutations = {
-  css_add: function(state, event) {
-    const {key, styleString} = event
-    const newStyles = cloneToObject(state.css)
-    if (newStyles[key]) {
-      newStyles[key].counter++
-    } else {
-      newStyles[key] = { counter: 1, styleString }
-    }
-    state.css = newStyles
+export const CSS_STORE = {
+  MUTATIONS : {
+    ADD: 'css_add',
+    REMOVE: 'css_remove',
   },
-  css_remove: function(state, key) {
-    if (!state.css[key]) return
-    const newStyles = cloneToObject(state.css)
-    if (newStyles[key].counter <= 1) {
-      delete newStyles[key]
+  GETTERS: {
+    ALL: 'css_all',
+  },
+}
+
+const state = {}
+const mutations = {
+  [CSS_STORE.MUTATIONS.ADD]: function(state, event) {
+    const {key, styleString} = event
+    const entry = state[key]
+    if (entry) {
+      Vue.set(state, key, {...entry, counter: entry.counter + 1})
     } else {
-      newStyles[key].counter--
+      Vue.set(state, key,  { counter: 1, styleString })
     }
-    state.css = newStyles
+  },
+  [CSS_STORE.MUTATIONS.REMOVE]: function(state, key) {
+    const entry = state[key]
+    if (!entry) return
+    if (entry.counter <= 1) {
+      Vue.delete(state, key)
+    } else {
+      Vue.set(state, key, {...entry, counter: entry.counter - 1})
+    }
   }
 }
 
 const getters = {
-  css_all: state => Object.values(state.css).map(({styleString}) => styleString).join('\n\n')
+  [CSS_STORE.GETTERS.ALL]: function(state) { return Object.values(state).map(({styleString}) => styleString).join('\n\n')}
 }
 
 export default {
-  store,
+  state,
   mutations,
   getters,
 }
