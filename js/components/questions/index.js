@@ -1,5 +1,4 @@
 import { template, style as css } from './view.js';
-import { arrayShuffle } from '../../utilities/arrayShuffle.js';
 import cssMixin from '../../mixins/css.js'
 import { QUESTIONS_STORE } from '../../store/questions.js';
 

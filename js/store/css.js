@@ -1,4 +1,3 @@
-import { cloneToObject } from '../utils/cloneToObject.js'
 export const CSS_STORE = {
   MUTATIONS : {
     ADD: 'css_add',

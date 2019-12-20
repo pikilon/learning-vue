@@ -1,10 +1,7 @@
 
 import questions from './components/questions/index.js'
 import newQuestion from './components/new-question/index.js'
-import { QUESTION_TYPES, LOCAL_STORAGE_KEYS } from './constants.js'
-import { localStorageSet, localStorageGetInitialize } from './utilities/localStorage.js'
 import styles from './components/all-styles.js'
-import { cloneToObject } from './utils/cloneToObject.js'
 import { store } from './store/index.js'
 import { QUESTIONS_STORE } from './store/questions.js'
 
