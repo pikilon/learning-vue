@@ -38,6 +38,7 @@ export const template = // html
         </div>
           <div class="column">
             <span v-if="question.type === '${QUESTION_TYPES.COLOR}'" class="${s.question__color}" :style="{backgroundColor: question.question}"></span>
+            <img v-if="question.type === '${QUESTION_TYPES.IMAGE}'" class="${s.question__color}" :src="question.question"></img>
           </div>
           <div class="column">
             <label v-for="answer in ${QUESTIONS_STORE.GETTERS.ANSWERS}" class="${s.question__answer} is-block">

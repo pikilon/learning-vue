@@ -27,8 +27,6 @@ export default Vue.extend({
     showRight() {
       if (!this.isImageType()) return this.question.type && this.question.question
       return this.isImageQuestionReady()
-
-
     },
     resetQuestion() {
       const { type } = this.question
