@@ -3,6 +3,8 @@ import { QUESTIONS_STORE } from '../../store/questions.js';
 export const cssSelectors = {
   question: 'question',
   question__color: 'question__color',
+  question__image: 'question__image',
+  question__text: 'question__text',
   question__answer: 'question__answer',
   question__result: 'question__result',
   question__checkbox: 'question__checkbox',
@@ -38,7 +40,8 @@ export const template = // html
         </div>
           <div class="column">
             <span v-if="question.type === '${QUESTION_TYPES.COLOR}'" class="${s.question__color}" :style="{backgroundColor: question.question}"></span>
-            <img v-if="question.type === '${QUESTION_TYPES.IMAGE}'" class="${s.question__color}" :src="question.question"></img>
+            <img v-if="question.type === '${QUESTION_TYPES.IMAGE}'" class="${s.question__image}" :src="question.question"></img>
+            <span v-if="question.type === '${QUESTION_TYPES.TEXT}'" class="${s.question__text}">{{question.question}}</span>
           </div>
           <div class="column">
             <label v-for="answer in ${QUESTIONS_STORE.GETTERS.ANSWERS}" class="${s.question__answer} is-block">

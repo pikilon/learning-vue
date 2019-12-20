@@ -23,7 +23,8 @@ export const template = // html
     </div>
     <div className="control" v-if="question.type">
       <input v-if="question.type === '${QUESTION_TYPES.COLOR}'" type="color" v-model="question.question"/>
-      <input v-if="question.type === '${QUESTION_TYPES.IMAGE}'" type="text" v-model="question.question"/>
+      <input v-if="question.type === '${QUESTION_TYPES.IMAGE}'" type="text" v-model="question.question" placeholder="paste image URL"/>
+      <input v-if="question.type === '${QUESTION_TYPES.TEXT}'" type="text" v-model="question.question" />
     </div>
     <div className="control" v-if="showRight()">
     <input type="text" v-model="question.right"/>
