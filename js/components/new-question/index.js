@@ -1,5 +1,6 @@
 import { QUESTION_TYPES } from '../../constants.js'
 import { template } from './view.js'
+import { QUESTIONS_STORE } from '../../store/questions.js'
 
 const defaultQuestion = () => ({ type: '', question: '', right: ''})
 
@@ -38,7 +39,7 @@ export default Vue.extend({
       return this.answers[index] === answer
     },
     submitQuestion() {
-      this.$emit('newQuestion', {...this.question })
+      this.$store.commit(QUESTIONS_STORE.MUTATIONS.ADD, {...this.question })
       this.resetQuestion()
     }
   },

@@ -1,6 +1,9 @@
 import { template, style as css } from './view.js';
 import { arrayShuffle } from '../../utilities/arrayShuffle.js';
 import cssMixin from '../../mixins/css.js'
+import { QUESTIONS_STORE } from '../../store/questions.js';
+
+const { mapState, mapGetters, mapMutations } = Vuex;
 
 const name = 'questions'
 export default Vue.extend({
@@ -8,34 +11,15 @@ export default Vue.extend({
   css,
   mixins: [cssMixin],
   template,
-  props: ['questions'],
-  data() {
-    return {
-      answers: arrayShuffle(this.questions.map(({right}) => right))
-    }
-  },
-  watch: {
-    questions() {
-      if (this.answers.length === this.questions.length) return this.answers
-      this.answers = arrayShuffle(this.questions.map(({right}) => right))
-    }
-
-  },
+  data: () => ({ answers: [] }),
   methods: {
-    isQuestionRight(question) { return question.answer === question.right },
-    isAnswerRight (index) {
-      const question = this.questions[index]
-
-      return question.answer === question.right
-    },
-    removeQuestionIndex (index) {
-      this.$emit('removeQuestionIndex', index)
-    },
-    getIconColor (question) {
-      return ['icon', this.isQuestionRight(question) ? 'has-text-success' : 'has-text-danger']
-    },
-    getIconShape (question) {
-      return ['fas', this.isQuestionRight(question) ? 'fa-check' : 'fa-times']
+    ...mapMutations([QUESTIONS_STORE.MUTATIONS.REMOVE]),
+    isRightAnswered(index){
+      return this.answers[index] === this.questions[index].right
     }
   },
+  computed: {
+    ...mapState(['questions']),
+    ...mapGetters([QUESTIONS_STORE.GETTERS.ANSWERS]),
+  }
 })

@@ -1,6 +1,3 @@
-import { cloneToObject } from '../utils/cloneToObject.js'
-import { localStorageSet } from '../utilities/localStorage.js'
-
 export const QUESTIONS_STORE = {
   MUTATIONS : {
     ADD: 'questions_add',
@@ -8,6 +5,7 @@ export const QUESTIONS_STORE = {
   },
   GETTERS: {
     ANSWERS: 'questions_answers',
+    AMOUNT: 'questions_amount',
   },
 }
 
@@ -22,9 +20,8 @@ const mutations = {
 }
 
 const getters = {
-  [QUESTIONS_STORE.GETTERS.ANSWERS]: function(state) { return
-    state.map(({answer}) => answer)
-  }
+  [QUESTIONS_STORE.GETTERS.ANSWERS]: function(state) {return _.shuffle(state.map(({right}) => right))},
+  [QUESTIONS_STORE.GETTERS.AMOUNT]: function(state) {return state.length},
 }
 
 export default {

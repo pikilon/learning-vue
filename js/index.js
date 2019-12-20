@@ -6,6 +6,9 @@ import { localStorageSet, localStorageGetInitialize } from './utilities/localSto
 import styles from './components/all-styles.js'
 import { cloneToObject } from './utils/cloneToObject.js'
 import { store } from './store/index.js'
+import { QUESTIONS_STORE } from './store/questions.js'
+
+const { mapGetters } = Vuex;
 
 var app = new Vue({
   components: { questions, newQuestion, styles },
@@ -14,20 +17,10 @@ var app = new Vue({
   template: //html
   `<div class="container">
     <styles />
-    <questions v-if="questions.length" v-bind:questions="questions" />
-    <newQuestion @newQuestion="addQuestion"/>
-  </div>`,
-  data(){ return {
-    questions: localStorageGetInitialize(LOCAL_STORAGE_KEYS.QUESTIONS, []),
-  }},
+    <questions v-if="${QUESTIONS_STORE.GETTERS.AMOUNT}" />
+    <newQuestion />
+    </div>`,
   methods: {
-    store() {
-      localStorageSet(LOCAL_STORAGE_KEYS.QUESTIONS, this.questions.map(({answer, ...rest}) => rest))
-    },
-    addQuestion(question) {
-      this.questions.push(question)
-      this.store()
-    },
     removeQuestions(indexesArray) {
         const newQuestions = this.questions.reduce(
           (result, question, index) => {
@@ -48,10 +41,6 @@ var app = new Vue({
     },
   },
   computed: {
-    randomAnswer(rightAnswer) { return this.questions.map(({answer}) => ({ answer, isRightAnswer: answer === rightAnswer })) },
-    allStyles() {
-      const result = Object.values(this.stylesDictionary).map(({styleString}) => styleString).join('\n\n')
-      return result
-    },
+    ...mapGetters([QUESTIONS_STORE.GETTERS.AMOUNT])
   }
 })
