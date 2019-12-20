@@ -17,26 +17,6 @@ var app = new Vue({
     <questions v-if="${QUESTIONS_STORE.GETTERS.AMOUNT}" />
     <newQuestion />
     </div>`,
-  methods: {
-    removeQuestions(indexesArray) {
-        const newQuestions = this.questions.reduce(
-          (result, question, index) => {
-            if (!indexesArray.includes(index)) result.push(question)
-            return result
-          },
-          []
-        )
-        this.questions = newQuestions
-        this.store()
-
-    },
-    removeQuestionIndex(questionIndex) {
-      this.removeQuestions([questionIndex])
-    },
-    isAnswerRight (index) {
-      return this.answers[index] === answer
-    },
-  },
   computed: {
     ...mapGetters([QUESTIONS_STORE.GETTERS.AMOUNT])
   }
