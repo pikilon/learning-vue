@@ -1,4 +1,6 @@
 
+
+import app from './components/app/index.js'
 import questions from './components/questions/index.js'
 import newQuestion from './components/new-question/index.js'
 import styles from './components/all-styles.js'
@@ -7,18 +9,32 @@ import { QUESTIONS_STORE } from './store/questions.js'
 
 const { mapGetters } = Vuex;
 
-var app = new Vue({
-  components: { questions, newQuestion, styles },
+new Vue({
+  components: { app, styles },
   el: '#app',
   vuetify: new Vuetify(),
   store,
-  template: //html
-  `<div class="container">
+  template: /*html*/
+  `<div>
     <styles />
-    <questions v-if="${QUESTIONS_STORE.GETTERS.AMOUNT}" />
-    <newQuestion />
-    </div>`,
+    <template>
+      <app />
+    </template>
+  </div>
+  `,
   computed: {
     ...mapGetters([QUESTIONS_STORE.GETTERS.AMOUNT])
   }
 })
+
+/*
+components: { questions, newQuestion, styles },
+el: '#app',
+vuetify: new Vuetify(),
+store,
+template: //html
+`<div class="container">
+  <styles />
+  <questions v-if="${QUESTIONS_STORE.GETTERS.AMOUNT}" />
+  <newQuestion />
+*/

@@ -5,7 +5,7 @@ const selectors = {
 }
 const s = selectors
 
-export const template = // html
+export const template = /*html*/
 `
 <div className="container">
   <div className="box ${s.preview}" v-if="isImageQuestionReady()">

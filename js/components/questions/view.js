@@ -13,7 +13,7 @@ const s = cssSelectors;
 const cssVars = {
   colorSize: '3rem',
 }
-export const style = //css
+export const style = /*css*/
 `
   .${s.question__result} {
     font-size: 2rem;
@@ -25,7 +25,7 @@ export const style = //css
   }
 `
 
-export const template = // html
+export const template = /*html*/
 `
   <section class="columns is-multiline">
     <article class="${s.question} column is-one-third" v-for="(question, index) in questions">
