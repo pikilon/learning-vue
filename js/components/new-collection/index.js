@@ -1,43 +1,40 @@
-import { QUESTION_TYPES } from '../../constants.js'
 import { template } from './view.js'
-import { QUESTIONS_STORE } from '../../store/questions.js'
-
-const defaultQuestion = () => ({ type: '', question: '', right: ''})
 
 export default Vue.extend({
   template,
-  data() {
-    return {
-      title: '',
-    }
-  },
-  methods: {
-    submit(event) {
-      console.log('event', event);
-    },
-    isImageQuestionReady() {
+  data: () => ({
+    valid: true,
+    name: '',
+    nameRules: [
+      v => !!v || 'Name is required',
+      v => (v && v.length <= 4) || 'Name must be less than 4 characters',
+    ],
+    email: '',
+    emailRules: [
+      v => !!v || 'E-mail is required',
+      v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+    ],
+    select: null,
+    items: [
+      'Item 1',
+      'Item 2',
+      'Item 3',
+      'Item 4',
+    ],
+    checkbox: false,
+  }),
 
-      return this.isImageType()
-          && (  this.question.question.includes('.png')
-                || this.question.question.includes('.jpg')
-                || this.question.question.includes('.svg')
-             )
+    methods: {
+      validate () {
+        if (this.$refs.form.validate()) {
+          this.snackbar = true
+        }
+      },
+      reset () {
+        this.$refs.form.reset()
+      },
+      resetValidation () {
+        this.$refs.form.resetValidation()
+      },
     },
-    showRight() {
-      if (!this.isImageType()) return this.question.type && this.question.question
-      return this.isImageQuestionReady()
-    },
-    resetQuestion() {
-      const { type } = this.question
-      this.question = defaultQuestion()
-      this.question.type = type
-    },
-    isAnswerRight (index) {
-      return this.answers[index] === answer
-    },
-    submitQuestion() {
-      this.$store.commit(QUESTIONS_STORE.MUTATIONS.ADD, {...this.question })
-      this.resetQuestion()
-    }
-  },
 })
