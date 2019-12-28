@@ -10,6 +10,7 @@ const { mapGetters } = Vuex;
 var app = new Vue({
   components: { questions, newQuestion, styles },
   el: '#app',
+  vuetify: new Vuetify(),
   store,
   template: //html
   `<div class="container">
