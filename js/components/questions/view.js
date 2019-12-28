@@ -31,14 +31,14 @@ export const template = // html
     <article class="${s.question} column is-one-third" v-for="(question, index) in questions">
       <div class="box">
         <div class="columns is-vcentered">
-        <div class="column">
+        <div class="column is-one-fifth">
           <button class="button" @click="${QUESTIONS_STORE.MUTATIONS.REMOVE}(index)">
             <span class="icon">
               <i class="fas fa-trash"></i>
             </span>
           </button>
         </div>
-          <div class="column">
+          <div class="column is-one-third">
             <span v-if="question.type === '${QUESTION_TYPES.COLOR}'" class="${s.question__color}" :style="{backgroundColor: question.question}"></span>
             <img v-if="question.type === '${QUESTION_TYPES.IMAGE}'" class="${s.question__image}" :src="question.question"></img>
             <span v-if="question.type === '${QUESTION_TYPES.TEXT}'" class="${s.question__text}">{{question.question}}</span>
