@@ -1,4 +1,5 @@
 import { template } from './view.js'
+import { COLLECTIONS_STORE } from '../../store/collections.js';
 
 const TITLE_MIN_LENGTH = 4
 
@@ -13,11 +14,20 @@ export default Vue.extend({
     ],
   }),
 
-    methods: {
-      validate () {
-        if (this.$refs.form.validate()) {
-          console.log('this.title', this.title);
+  methods: {
+    validate () {
+      if (this.$refs.form.validate()) {
+        const payload = {
+          title: this.title,
+          slug: this.slug
         }
-      },
+        this.$store.commit(COLLECTIONS_STORE.MUTATIONS.NEW, payload )
+      }
     },
+  },
+  computed: {
+    slug(){
+      return _.kebabCase(this.title)
+    }
+  }
 })
