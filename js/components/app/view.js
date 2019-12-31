@@ -16,13 +16,15 @@ export const template = /*html*/
 
   <v-app-bar app color="indigo" dark>
     <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-    <v-toolbar-title>Simple Questions</v-toolbar-title>
+    <v-toolbar-title v-if="collectionSlug">{{collectionSlug}}</v-toolbar-title>
+    <v-toolbar-title v-else>Simple Questions</v-toolbar-title>
   </v-app-bar>
 
   <v-content>
     <v-container class="fill-height" fluid>
       <v-row align="center" justify="center">
-       <newCollection />
+      <collection v-if="collectionSlug" :slug="collectionSlug" />
+      <newCollection v-else="collectionSlug"/>
       </v-row>
     </v-container>
   </v-content>

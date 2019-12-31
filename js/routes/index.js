@@ -1,6 +1,6 @@
 import app from '../components/app/index.js'
 
 const routes = [
-  {path: '/:testSlug?', component: app},
+  {path: '/:collectionSlug?', component: app},
 ]
 export default new VueRouter({ routes })

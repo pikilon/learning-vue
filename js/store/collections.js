@@ -8,6 +8,9 @@ export const COLLECTIONS_STORE = {
     SET_TITLE: `${STORE}_set_title`,
     NEW: `${STORE}_new`,
   },
+  GETTERS: {
+    GET_ONE: `${STORE}_get_one`
+  }
 }
 const state = {}
 const mutations = {
@@ -16,9 +19,13 @@ const mutations = {
     Vue.set(state, titleSlug.slug, titleSlug)
   },
 }
+const getters = {
+  [COLLECTIONS_STORE.GETTERS.GET_ONE]: (state, slug) => state[slug]
+}
 
 
 export default {
   state,
   mutations,
+  getters,
 }
