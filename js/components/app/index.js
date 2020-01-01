@@ -1,11 +1,18 @@
 import { template } from "./view.js"
 import newCollection from "../new-collection/index.js"
 import collection from "../collection/index.js"
+import { COLLECTIONS_STORE } from "../../store/collections.js";
 
+const { mapGetters } = Vuex;
 
 export default Vue.extend({
   template,
   components: { newCollection, collection },
+  mounted(){
+    const wrongSlug = this.collectionSlug && !this.title
+    console.log('this.collectionSlug', this.collectionSlug);
+    if (wrongSlug) console.log("redirect")
+  },
   props: {
     source: String,
   },
@@ -13,6 +20,8 @@ export default Vue.extend({
     drawer: null,
   }),
   computed: {
-    collectionSlug() { return this.$route.params.collectionSlug },
+    ...mapGetters([COLLECTIONS_STORE.GETTERS.GET_ONE_TITLE]),
+    title() { return this[COLLECTIONS_STORE.GETTERS.GET_ONE_TITLE](this.collectionSlug)},
+    collectionSlug() { return this.$route.params.collectionSlug || ''},
   }
 })

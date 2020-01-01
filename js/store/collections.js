@@ -9,7 +9,8 @@ export const COLLECTIONS_STORE = {
     NEW: `${STORE}_new`,
   },
   GETTERS: {
-    GET_ONE: `${STORE}_get_one`
+    GET_ONE: `${STORE}_get_one`,
+    GET_ONE_TITLE: `${STORE}_get_one_title`,
   }
 }
 const state = {}
@@ -20,7 +21,8 @@ const mutations = {
   },
 }
 const getters = {
-  [COLLECTIONS_STORE.GETTERS.GET_ONE]: (state, slug) => state[slug]
+  [COLLECTIONS_STORE.GETTERS.GET_ONE]: state => slug => state[slug],
+  [COLLECTIONS_STORE.GETTERS.GET_ONE_TITLE]: state => slug => state[slug] ? state[slug].title : false,
 }
 
 
