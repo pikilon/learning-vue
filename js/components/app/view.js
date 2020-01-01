@@ -12,11 +12,11 @@ export const template = /*html*/
   </v-app-bar>
 
   <v-content>
-    <v-container class="fill-height" fluid>
-      <v-row align="center" justify="center">
+    <v-container fluid>
+
       <collection v-if="collectionSlug" :slug="collectionSlug" />
       <newCollection v-else/>
-      </v-row>
+
     </v-container>
   </v-content>
   <v-footer color="indigo" app>
