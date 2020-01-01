@@ -2,16 +2,7 @@ export const template = /*html*/
 `
 <v-app id="inspire">
   <v-navigation-drawer v-model="drawer" app>
-    <v-list>
-      <v-list-item tag="router-link" to="/">
-        <v-list-item-icon>
-          <v-icon>mdi-pen</v-icon>
-        </v-list-item-icon>
-        <v-list-item-content>
-          <v-list-item-title>New</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-    </v-list>
+    <navigation />
   </v-navigation-drawer>
 
   <v-app-bar app color="indigo" dark>

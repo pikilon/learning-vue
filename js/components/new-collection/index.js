@@ -21,6 +21,7 @@ export default Vue.extend({
           title: this.title,
           slug: this.slug
         }
+        this.$router.push(payload.slug)
         this.$store.commit(COLLECTIONS_STORE.MUTATIONS.NEW, payload )
       }
     },
