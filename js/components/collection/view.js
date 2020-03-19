@@ -1,6 +1,7 @@
 export const template = /*html*/
 `
  <div>collection: {{slug}}
+    <new-question />
     <v-btn
       absolute
       dark
