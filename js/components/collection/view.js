@@ -1,6 +1,7 @@
 export const template = /*html*/
 `
- <div>collection: {{slug}}
+ <div>collection: {{slug}} {{collection.questions.length}}
+
     <new-question />
     <v-btn
       absolute
