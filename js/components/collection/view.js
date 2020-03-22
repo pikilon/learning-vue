@@ -1,8 +1,14 @@
 export const template = /*html*/
 `
  <div>collection: {{slug}} {{collection.questions.length}}
+  <v-container fluid>
+    <v-row>
+      <v-col>
+        <new-question />
+      </v-col>
+    </v-row>
+  </v-container>
 
-    <new-question />
     <v-btn
       absolute
       dark

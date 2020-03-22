@@ -2,7 +2,7 @@
 
 import app from './components/app/index.js'
 import questions from './components/questions/index.js'
-import newQuestion from './components/new-question/index.js'
+import newQuestion from './components/question/index.js'
 import styles from './components/all-styles.js'
 import { store } from './store/index.js'
 import { QUESTIONS_STORE } from './store/questions.js'

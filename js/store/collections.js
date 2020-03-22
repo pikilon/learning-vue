@@ -14,6 +14,7 @@ export const COLLECTIONS_STORE = {
     LINKS: `${STORE}_links`,
   }
 }
+
 const state = {}
 const mutations = {
   [COLLECTIONS_STORE.MUTATIONS.NEW]: function(state, titleSlug) {

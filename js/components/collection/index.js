@@ -1,6 +1,6 @@
 
 import { template } from './view.js'
-import question from '../new-question/index.js'
+import question from '../question/index.js'
 import { COLLECTIONS_STORE } from '../../store/collections.js';
 
 const { mapGetters } = Vuex;

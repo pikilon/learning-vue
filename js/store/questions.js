@@ -4,25 +4,27 @@ export const QUESTIONS_STORE = {
     REMOVE: 'questions_remove',
   },
   GETTERS: {
+    COLLECTION_QUESTIONS: 'collection_questions',
     ANSWERS: 'questions_answers',
     AMOUNT: 'questions_amount',
   },
 }
 
-const state = []
+const state = {}
 const mutations = {
   [QUESTIONS_STORE.MUTATIONS.ADD]: function(state, question) {
-    state.push(question)
+    Vue.set(state, question.statement, question)
+
   },
-  [QUESTIONS_STORE.MUTATIONS.REMOVE]: function(state, index) {
-    Vue.delete(state, index)
+  [QUESTIONS_STORE.MUTATIONS.REMOVE]: function(state, question) {
+    Vue.delete(state, question.statement)
   }
 }
 
 const getters = {
-  [QUESTIONS_STORE.GETTERS.ANSWERS]: function(state) {return _.shuffle(state.map(({right}) => right))},
-  [QUESTIONS_STORE.GETTERS.AMOUNT]: function(state) {return state.length},
+  [QUESTIONS_STORE.GETTERS.COLLECTION_QUESTIONS]: state => statementsArray => statementsArray.map(statement => state[statement])
 }
+
 
 export default {
   state,
