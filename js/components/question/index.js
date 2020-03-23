@@ -1,6 +1,7 @@
 import { QUESTION_TYPES } from '../../constants.js'
-import { template } from './view.js'
+import { template, style as css } from './view.js'
 import { QUESTIONS_STORE } from '../../store/questions.js'
+import cssMixin from '../../mixins/css.js'
 
 const INPUT_PLACEHOLDERS = {
   [QUESTION_TYPES.TEXT]: 'EG: How Many days has September',
@@ -8,15 +9,26 @@ const INPUT_PLACEHOLDERS = {
   [QUESTION_TYPES.IMAGE]: 'Image Url: "https://cdn.vuetifyjs.com/images/cards/docks.jpg',
 
 }
+function checkImageUrl (url, goodCallback, badCallback) {
+  const img = new Image();
+  img.onload = goodCallback;
+  img.onerror = badCallback;
+  img.src = url;
+}
 
 export default Vue.extend({
+  name: 'question',
   template,
+  css,
+  mixins: [cssMixin],
   props: {
     new: Boolean,
   },
   data() {
     return {
       type: QUESTION_TYPES.TEXT,
+      imageReady: false,
+      imageError: '',
       statement: '',
       answer: '',
       isEditing: true,
@@ -27,8 +39,7 @@ export default Vue.extend({
     isNew() { return !this.statement },
     isImage() { return this.type === QUESTION_TYPES.IMAGE},
     isColor() { return this.type === QUESTION_TYPES.COLOR},
-
-    imgSrc() { return !this.isNew && this.type !== QUESTION_TYPES.IMAGE && this.question.statement },
+    styleColor() { return this.isColor && this.statement && `background-color: ${this.statement}` },
     title() {
       if (this.type === QUESTION_TYPES.COLOR) return 'color'
       if (this.type === QUESTION_TYPES.IMAGE) return 'image'
@@ -36,24 +47,45 @@ export default Vue.extend({
       return this.statement
     },
     inputPlaceholder() { return INPUT_PLACEHOLDERS[this.type] },
-    isValid() { return this.type && this.statement && this.answer }
+    isValid() { return this.type && this.statement && this.answer && this.imageReady }
   },
   methods: {
-    isImageType() {
-      return this.type === QUESTION_TYPES.IMAGE
-    },
     reset() {
       const { type } = this
       this.statement = ''
       this.answer = ''
+      this.imageError = ''
+      this.imageReady = false
     },
     isAnswerRight (answer) {
       return this.answer === answer
     },
+    statementChange() {
+      console.log('this.statement', this.statement);
+      if (!this.isImage) return
+      if (!this.statement) {
+        this.imageError = ''
+        return
+      }
+      checkImageUrl(
+        this.statement,
+        () => {
+          this.imageReady = true
+          this.imageError = ''
+        },
+        () => {this.imageError = 'This Url is not valid'},
+      )
+    },
+    checkImage(url) {
+      var img = new Image();
+      img.onload = () => this.imageError = ''
+      img.onerror = bad;
+    },
     save() {
+      if (!this.isValid) return
       const {statement, type, answer} = this
       const question = {statement, type, answer}
-      return console.log('question', question);
+      return console.log('question', question)
       // this.$store.commit(QUESTIONS_STORE.MUTATIONS.ADD, {statement, type, answer})
       // this.resetQuestion()
     }

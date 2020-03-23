@@ -4,6 +4,7 @@ const block = 'question'
 const selectors = {
   block,
   preview: `${block}__preview`,
+  innerTitle: `${block}__innerTitle`,
 }
 const s = selectors
 
@@ -12,20 +13,20 @@ export const template = /*html*/
   :class="['mx-auto', '${s.block}', '${s.block}--' + type ]"
   max-width="400"
   >
-    <div className="box ${s.preview}">
+    <div className="box ${s.preview}" :style="styleColor">
       <v-img
-        v-if="isImage"
+        v-if="imageReady"
         class="white--text align-end"
         height="200px"
-        src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+        :src="statement"
       >
-        <v-card-title>{{title}}</v-card-title>
+        <v-card-title style="mix-blend-mode: difference;">{{title}}</v-card-title>
       </v-img>
 
-      <v-card-title v-else>
+      <v-card-title v-else class="${s.innerTitle}">
         {{title}}
       </v-card-title>
-      </div>
+    </div>
       <v-card-text>
         <v-container v-if="isEditing">
 
@@ -45,6 +46,7 @@ export const template = /*html*/
               v-model="statement"
               type="text"
               label="Question Statement"
+              v-on:change="statementChange"
               :placeholder="inputPlaceholder"
             />
           </v-row>
@@ -65,6 +67,18 @@ export const template = /*html*/
       </v-card-text>
   </v-card>
 `
+
+export const style =
+/*css*/`
+  .${s.preview} {
+    min-height: 150px;
+  }
+  .${s.innerTitle} {
+    color: white;
+    mix-blend-mode: exclusion;
+  }
+`
+
 
 /*
 
