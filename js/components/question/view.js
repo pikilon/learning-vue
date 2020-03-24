@@ -13,7 +13,7 @@ export const template = /*html*/
   :class="['mx-auto', '${s.block}', '${s.block}--' + type ]"
   max-width="400"
   >
-    <div className="box ${s.preview}" :style="styleColor">
+    <div class="${s.preview}" :style="styleColor">
       <v-img
         v-if="imageReady"
         class="white--text align-end"
@@ -41,7 +41,12 @@ export const template = /*html*/
 
           </v-row>
           <v-row>
-            <v-color-picker v-if="isColor" v-model="statement" />
+            <v-color-picker
+             v-if="isColor"
+              show-swatches
+              hide-inputs
+              v-model="statement"
+            />
             <v-text-field v-else
               v-model="statement"
               type="text"
@@ -68,10 +73,9 @@ export const template = /*html*/
   </v-card>
 `
 
-export const style =
-/*css*/`
+export const style = /*css*/`
   .${s.preview} {
-    min-height: 150px;
+    min-height: 10em;
   }
   .${s.innerTitle} {
     color: white;
