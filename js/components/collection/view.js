@@ -4,7 +4,7 @@ export const template = /*html*/
   <v-container fluid>
     <v-row>
       <v-col>
-        <new-question />
+        <new-question :collectionSlug="slug"/>
       </v-col>
     </v-row>
   </v-container>

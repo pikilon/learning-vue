@@ -3,11 +3,12 @@ import { template, style as css } from './view.js'
 import { QUESTIONS_STORE } from '../../store/questions.js'
 import cssMixin from '../../mixins/css.js'
 
+const { mapActions } = Vuex
+
 const INPUT_PLACEHOLDERS = {
   [QUESTION_TYPES.TEXT]: 'EG: How Many days has September',
   [QUESTION_TYPES.COLOR]: 'Color code: #ff0000',
   [QUESTION_TYPES.IMAGE]: 'Image Url: "https://cdn.vuetifyjs.com/images/cards/docks.jpg',
-
 }
 function checkImageUrl (url, goodCallback, badCallback) {
   const img = new Image();
@@ -23,6 +24,7 @@ export default Vue.extend({
   mixins: [cssMixin],
   props: {
     new: Boolean,
+    collectionSlug: String,
   },
   data() {
     return {
@@ -47,9 +49,10 @@ export default Vue.extend({
       return this.statement
     },
     inputPlaceholder() { return INPUT_PLACEHOLDERS[this.type] },
-    isValid() { return this.type && this.statement && this.answer && this.imageReady }
+    isValid() { return this.type && this.statement && this.answer }
   },
   methods: {
+    ...mapActions([QUESTIONS_STORE.ACTIONS.ADD_TO_COLLECTION]),
     reset() {
       const { type } = this
       this.statement = ''
@@ -83,9 +86,10 @@ export default Vue.extend({
     },
     save() {
       if (!this.isValid) return
-      const {statement, type, answer} = this
+      const {statement, type, answer, collectionSlug} = this
       const question = {statement, type, answer}
-      return console.log('question', question)
+      this[QUESTIONS_STORE.ACTIONS.ADD_TO_COLLECTION]({question, collectionSlug})
+
       // this.$store.commit(QUESTIONS_STORE.MUTATIONS.ADD, {statement, type, answer})
       // this.resetQuestion()
     }

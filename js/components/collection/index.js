@@ -15,9 +15,5 @@ export default Vue.extend({
     ...mapGetters([COLLECTIONS_STORE.GETTERS.ONE]),
     questions: () => [],
     collection() { return this[COLLECTIONS_STORE.GETTERS.ONE](this.slug)},
-    miau() {
-
-      return this[COLLECTIONS_STORE.GETTERS.ONE](this.slug)}
-    // ...mapGetters([COLLECTIONS_STORE.GETTERS.ONE(this.props.slug)]),
   }
 })
