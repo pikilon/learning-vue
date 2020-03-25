@@ -89,9 +89,7 @@ export default Vue.extend({
       const {statement, type, answer, collectionSlug} = this
       const question = {statement, type, answer}
       this[QUESTIONS_STORE.ACTIONS.ADD_TO_COLLECTION]({question, collectionSlug})
-
-      // this.$store.commit(QUESTIONS_STORE.MUTATIONS.ADD, {statement, type, answer})
-      // this.resetQuestion()
+      this.reset()
     }
   },
 })

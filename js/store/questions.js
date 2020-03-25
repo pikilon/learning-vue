@@ -1,3 +1,5 @@
+import { COLLECTIONS_STORE } from './collections.js'
+
 export const QUESTIONS_STORE = {
   MUTATIONS : {
     ADD: 'questions_add',
@@ -24,8 +26,8 @@ const mutations = {
 }
 const actions = {
   [QUESTIONS_STORE.ACTIONS.ADD_TO_COLLECTION]: ({commit}, {question, collectionSlug}) => {
-    console.log('collectionSlug', collectionSlug);
-    console.log('question', question);
+    commit(QUESTIONS_STORE.MUTATIONS.ADD, question)
+    commit(COLLECTIONS_STORE.MUTATIONS.ADD_QUESTION, {collectionSlug, questionStatement: question.statement})
   }
 }
 

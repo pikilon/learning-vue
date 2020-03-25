@@ -3,7 +3,7 @@ export const COLLECTIONS_STORE = {
   STORE,
   MUTATIONS : {
     ADD: `${STORE}_add`,
-    ADD_QUESTION_INDEX: `${STORE}_question_add`,
+    ADD_QUESTION: `${STORE}_question_add`,
     REMOVE_QUESTION_INDEX: `${STORE}_question_remove`,
     SET_TITLE: `${STORE}_set_title`,
     NEW: `${STORE}_new`,
@@ -21,6 +21,10 @@ const mutations = {
     titleSlug.questions = []
     Vue.set(state, titleSlug.slug, titleSlug)
   },
+  [COLLECTIONS_STORE.MUTATIONS.ADD_QUESTION]: function (state, {collectionSlug, questionStatement}) {
+    const collection = state[collectionSlug]
+    collection.questions.push(questionStatement)
+  }
 }
 const getters = {
   [COLLECTIONS_STORE.GETTERS.ONE]: state => slug => state[slug],

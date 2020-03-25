@@ -13,7 +13,6 @@ export default Vue.extend({
   },
   computed: {
     ...mapGetters([COLLECTIONS_STORE.GETTERS.ONE]),
-    questions: () => [],
     collection() { return this[COLLECTIONS_STORE.GETTERS.ONE](this.slug)},
   }
 })
