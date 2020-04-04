@@ -28,6 +28,7 @@ export const template = /*html*/
       </v-card-title>
     </div>
       <v-card-text>
+      {{answers.length}}
         <v-container v-if="isEditing">
 
 

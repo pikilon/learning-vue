@@ -2,8 +2,9 @@ import { QUESTION_TYPES } from '../../constants.js'
 import { template, style as css } from './view.js'
 import { QUESTIONS_STORE } from '../../store/questions.js'
 import cssMixin from '../../mixins/css.js'
+import { COLLECTIONS_STORE } from '../../store/collections.js'
 
-const { mapActions } = Vuex
+const { mapActions, mapState, mapGetters } = Vuex
 
 const INPUT_PLACEHOLDERS = {
   [QUESTION_TYPES.TEXT]: 'EG: How Many days has September',
@@ -29,15 +30,23 @@ export default Vue.extend({
   data() {
     return {
       type: QUESTION_TYPES.TEXT,
-      imageReady: false,
-      imageError: '',
       statement: '',
       answer: '',
+      imageReady: false,
+      imageError: '',
       isEditing: true,
       types: Object.values(QUESTION_TYPES),
     }
   },
   computed: {
+    ...mapGetters([QUESTIONS_STORE.GETTERS.RANDOM]),
+
+    answers() {
+      const allAnswesQuestionsShuffled = this[QUESTIONS_STORE.GETTERS.RANDOM].map(question => question.answer)
+      console.log('allQuestions', allAnswesQuestionsShuffled);
+      return allAnswesQuestionsShuffled
+    },
+
     isNew() { return !this.statement },
     isImage() { return this.type === QUESTION_TYPES.IMAGE},
     isColor() { return this.type === QUESTION_TYPES.COLOR},

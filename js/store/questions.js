@@ -9,6 +9,7 @@ export const QUESTIONS_STORE = {
     ADD_TO_COLLECTION: 'add_to_collection',
   },
   GETTERS: {
+    RANDOM: 'random_questions',
     COLLECTION_QUESTIONS: 'collection_questions',
     ANSWERS: 'questions_answers',
     AMOUNT: 'questions_amount',
@@ -32,7 +33,8 @@ const actions = {
 }
 
 const getters = {
-  [QUESTIONS_STORE.GETTERS.COLLECTION_QUESTIONS]: state => statementsArray => statementsArray.map(statement => state[statement])
+  [QUESTIONS_STORE.GETTERS.COLLECTION_QUESTIONS]: state => statementsArray => statementsArray.map(statement => state[statement]),
+  [QUESTIONS_STORE.GETTERS.RANDOM]: state => _.shuffle(state),
 }
 
 
