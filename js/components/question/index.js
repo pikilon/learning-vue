@@ -26,7 +26,7 @@ export default Vue.extend({
   props: {
     new: Boolean,
     collectionSlug: String,
-    statemenSlug: String,
+    statementSlug: String,
   },
   data() {
     return {
@@ -35,15 +35,23 @@ export default Vue.extend({
       answer: '',
       imageReady: false,
       imageError: '',
-      isEditing: true,
+      isEditing: this.new || false,
       types: Object.values(QUESTION_TYPES),
     }
+  },
+  created() {
+    if (this.new) return
+    const question = this.allQuestions[this.statementSlug]
+    this.answer = question.answer
+    this.type = question.type
+
   },
   computed: {
     ...mapGetters([COLLECTIONS_STORE.GETTERS.RANDOM_QUESTIONS]),
     ...mapState({
       allQuestions: state => state.questions,
     }),
+
 
     answers() {
       const { questions } = this[COLLECTIONS_STORE.GETTERS.RANDOM_QUESTIONS][this.collectionSlug]
