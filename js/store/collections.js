@@ -4,6 +4,7 @@ export const COLLECTIONS_STORE = {
   MUTATIONS : {
     ADD: `${STORE}_add`,
     ADD_QUESTION: `${STORE}_question_add`,
+    UPDATE_QUESTION: `${STORE}_question_update`,
     REMOVE_QUESTION_INDEX: `${STORE}_question_remove`,
     SET_TITLE: `${STORE}_set_title`,
     NEW: `${STORE}_new`,
@@ -25,9 +26,11 @@ const mutations = {
   [COLLECTIONS_STORE.MUTATIONS.REMOVE_QUESTION_INDEX]: function (state, {collectionSlug, questionIndex}) {
     state[collectionSlug].questions.splice(questionIndex, 1)
   },
-  [COLLECTIONS_STORE.MUTATIONS.ADD_QUESTION]: function (state, {collectionSlug, questionStatement}) {
-    const collection = state[collectionSlug]
-    collection.questions.push(questionStatement)
+  [COLLECTIONS_STORE.MUTATIONS.UPDATE_QUESTION]: function (state, {collectionSlug, questionIndex, question}) {
+    state[collectionSlug].questions.splice(questionIndex, 1, question)
+  },
+  [COLLECTIONS_STORE.MUTATIONS.ADD_QUESTION]: function (state, {collectionSlug, question}) {
+    state[collectionSlug].questions.push(question)
   }
 }
 const getters = {

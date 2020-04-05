@@ -1,17 +1,17 @@
 export const template = /*html*/
 `
- <div>collection: {{slug}} {{questions.length}}
+ <div>
   <v-container fluid>
     <v-row>
       <v-col
-        v-for="(questionSlug, index) in questions"
-        :key="questionSlug + index"
+        v-for="(question, index) in questions"
+        :key="question.statement + index"
         cols="12"
         sm="6"
         >
         <vue-question
           :collectionSlug="slug"
-          :statement-slug="questionSlug"
+          :statement-slug="question.statement"
           :question-index="index"
 
         />
