@@ -33,6 +33,9 @@ export default Vue.extend({
       type: QUESTION_TYPES.TEXT,
       statement: this.statementSlug || '',
       answer: '',
+
+      suggestedAnswer: undefined,
+      evaluation: undefined,
       imageReady: false,
       imageError: '',
       isEditing: this.new || false,
@@ -104,6 +107,14 @@ export default Vue.extend({
       var img = new Image();
       img.onload = () => this.imageError = ''
       img.onerror = bad;
+    },
+    checkAnswer() {
+      const answerIsRight = this.answer === this.suggestedAnswer
+      this.evaluation = {
+        icon: answerIsRight ? 'mdi-check' : 'mdi-close',
+        color: answerIsRight ? 'green' : 'red',
+      }
+
     },
     save() {
       if (!this.isValid) return
