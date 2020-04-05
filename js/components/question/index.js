@@ -5,11 +5,6 @@ import { COLLECTIONS_STORE } from '../../store/collections.js'
 
 const { mapActions, mapState, mapGetters } = Vuex
 
-const INPUT_PLACEHOLDERS = {
-  [QUESTION_TYPES.TEXT]: 'EG: How Many days has September',
-  [QUESTION_TYPES.COLOR]: 'Color code: #ff0000',
-  [QUESTION_TYPES.IMAGE]: 'Image Url: "https://cdn.vuetifyjs.com/images/cards/docks.jpg',
-}
 function checkImageUrl (url, goodCallback, badCallback) {
   const img = new Image();
   img.onload = goodCallback;
@@ -46,6 +41,7 @@ export default Vue.extend({
     if (this.new) return
     this.answer = this.question.answer
     this.type = this.question.type
+    this.imageReady = true
   },
   computed: {
     ...mapGetters([COLLECTIONS_STORE.GETTERS.RANDOM_QUESTIONS]),
@@ -55,6 +51,7 @@ export default Vue.extend({
     answers() { return this[COLLECTIONS_STORE.GETTERS.RANDOM_QUESTIONS][this.collectionSlug].questions.map(question => question.answer) },
     isImage() { return this.type === QUESTION_TYPES.IMAGE},
     isColor() { return this.type === QUESTION_TYPES.COLOR},
+    isText() { return this.type === QUESTION_TYPES.TEXT},
     styleColor() { return this.isColor && this.statement && `background-color: ${this.statement}` },
     title() {
       if (this.type === QUESTION_TYPES.COLOR) return 'color'
@@ -62,7 +59,22 @@ export default Vue.extend({
       if (this.new) return 'New Question'
       return this.statement
     },
-    inputPlaceholder() { return INPUT_PLACEHOLDERS[this.type] },
+    imageStatement: {
+      get: function() {
+       return this.isImage && this.statement
+      },
+      set: function(newValue) {
+        checkImageUrl(
+          newValue,
+          () => {
+            this.statement = newValue
+            this.imageError = ''
+          },
+          () => {this.imageError = 'This Url is not valid'},
+        )
+      },
+    },
+
     isValid() { return this.type && this.statement && this.answer }
   },
   methods: {
@@ -75,22 +87,6 @@ export default Vue.extend({
     },
     isAnswerRight (answer) {
       return this.answer === answer
-    },
-    statementChange() {
-      console.log('this.statement', this.statement);
-      if (!this.isImage) return
-      if (!this.statement) {
-        this.imageError = ''
-        return
-      }
-      checkImageUrl(
-        this.statement,
-        () => {
-          this.imageReady = true
-          this.imageError = ''
-        },
-        () => {this.imageError = 'This Url is not valid'},
-      )
     },
     checkImage(url) {
       var img = new Image();

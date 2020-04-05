@@ -19,9 +19,7 @@ export const template = /*html*/ `
         </v-btn>
     </v-card-text>
 
-    <v-img v-if="imageReady" class="white--text align-end" height="200px" :src="statement">
-      <v-card-title style="mix-blend-mode: difference;">{{title}}</v-card-title>
-    </v-img>
+    <v-img v-if="imageStatement" class="white--text align-end" height="200px" :src="imageStatement" />
 
     <v-card-title v-else class="${s.innerTitle}">
       {{title}}
@@ -35,8 +33,13 @@ export const template = /*html*/ `
       </v-row>
       <v-row>
         <v-color-picker v-if="isColor" show-swatches hide-inputs v-model="statement" />
-        <v-text-field v-else v-model="statement" type="text" label="Question Statement" v-on:change="statementChange"
-          :placeholder="inputPlaceholder" />
+
+        <v-text-field v-if="isImage" v-model="imageStatement" type="text" label="Question Statement"
+          placeholder="Image Url: https://cdn.vuetifyjs.com/images/cards/docks.jpg" :rules="[imageError]" :error="!!imageError"  />
+
+        <v-text-field v-if="isText" v-model="statement" type="text" label="Question Statement"
+          placeholder="EG: How Many days has September" />
+
       </v-row>
       <v-row>
         <v-text-field v-model="answer" label="Right answer" />
