@@ -34,7 +34,6 @@ const actions = {
 
 const getters = {
   [QUESTIONS_STORE.GETTERS.COLLECTION_QUESTIONS]: state => statementsArray => statementsArray.map(statement => state[statement]),
-  [QUESTIONS_STORE.GETTERS.RANDOM]: state => _.shuffle(state),
 }
 
 

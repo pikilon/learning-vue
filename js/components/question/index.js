@@ -26,11 +26,12 @@ export default Vue.extend({
   props: {
     new: Boolean,
     collectionSlug: String,
+    statemenSlug: String,
   },
   data() {
     return {
       type: QUESTION_TYPES.TEXT,
-      statement: '',
+      statement: this.statementSlug || '',
       answer: '',
       imageReady: false,
       imageError: '',
@@ -39,12 +40,15 @@ export default Vue.extend({
     }
   },
   computed: {
-    ...mapGetters([QUESTIONS_STORE.GETTERS.RANDOM]),
+    ...mapGetters([COLLECTIONS_STORE.GETTERS.RANDOM_QUESTIONS]),
+    ...mapState({
+      allQuestions: state => state.questions,
+    }),
 
     answers() {
-      const allAnswesQuestionsShuffled = this[QUESTIONS_STORE.GETTERS.RANDOM].map(question => question.answer)
-      console.log('allQuestions', allAnswesQuestionsShuffled);
-      return allAnswesQuestionsShuffled
+      const { questions } = this[COLLECTIONS_STORE.GETTERS.RANDOM_QUESTIONS][this.collectionSlug]
+      const randomAnswers = questions.map(questionKey => this.allQuestions[questionKey].answer)
+      return randomAnswers
     },
 
     isNew() { return !this.statement },

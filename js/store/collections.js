@@ -9,6 +9,7 @@ export const COLLECTIONS_STORE = {
     NEW: `${STORE}_new`,
   },
   GETTERS: {
+    RANDOM_QUESTIONS: `${STORE}_random_questions`,
     ONE: `${STORE}_get_one`,
     ONE_TITLE: `${STORE}_get_one_title`,
     LINKS: `${STORE}_links`,
@@ -30,6 +31,14 @@ const getters = {
   [COLLECTIONS_STORE.GETTERS.ONE]: state => slug => state[slug],
   [COLLECTIONS_STORE.GETTERS.ONE_TITLE]: state => slug => state[slug] ? state[slug].title : false,
   [COLLECTIONS_STORE.GETTERS.LINKS]: state => Object.values(state),
+  [COLLECTIONS_STORE.GETTERS.RANDOM_QUESTIONS]: state => Object.keys(state).reduce(
+    (result, collectionKey) => {
+      const collection = state[collectionKey]
+      result[collectionKey] = {...collection, questions: _.shuffle(collection.questions)}
+      return result
+    },
+    {}
+  )
 }
 
 
