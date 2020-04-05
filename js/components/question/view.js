@@ -52,11 +52,20 @@ export const template = /*html*/ `
       <v-row>
         <v-select v-model="suggestedAnswer" :items="answers" label="Choose answer" />
       </v-row>
-      <v-row justify="end">
-       <v-btn :disabled="!suggestedAnswer" color="success" @click="checkAnswer">
-          Check
-       </v-btn>
-      </v-row>
+
+      <div class="text-right">
+        <v-btn color="red" @click="deleteQuestion">
+            Delete
+        </v-btn>
+        <v-btn color="primary" @click="toggleEdition">
+            Edit
+        </v-btn>
+
+        <v-btn :disabled="!suggestedAnswer" color="success" @click="checkAnswer">
+            Check
+        </v-btn>
+      </div>
+
 
     </v-container>
   </v-card-text>

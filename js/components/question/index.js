@@ -27,6 +27,7 @@ export default Vue.extend({
     new: Boolean,
     collectionSlug: String,
     statementSlug: String,
+    questionIndex: Number,
   },
   data() {
     return {
@@ -114,14 +115,23 @@ export default Vue.extend({
         icon: answerIsRight ? 'mdi-check' : 'mdi-close',
         color: answerIsRight ? 'green' : 'red',
       }
-
     },
+    deleteQuestion() {
+      const payload ={ collectionSlug: this.collectionSlug, questionIndex: this.questionIndex }
+      console.log('payload', payload);
+      this.$store.commit(COLLECTIONS_STORE.MUTATIONS.REMOVE_QUESTION_INDEX, payload)
+    },
+    toggleEdition() { this.isEditing = !this.isEditing },
     save() {
       if (!this.isValid) return
       const {statement, type, answer, collectionSlug} = this
       const question = {statement, type, answer}
       this[QUESTIONS_STORE.ACTIONS.ADD_TO_COLLECTION]({question, collectionSlug})
-      this.reset()
+      if (this.new) {
+        this.reset()
+      } else {
+        this.toggleEdition()
+      }
     }
   },
 })

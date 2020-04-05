@@ -22,6 +22,9 @@ const mutations = {
     titleSlug.questions = []
     Vue.set(state, titleSlug.slug, titleSlug)
   },
+  [COLLECTIONS_STORE.MUTATIONS.REMOVE_QUESTION_INDEX]: function (state, {collectionSlug, questionIndex}) {
+    state[collectionSlug].questions.splice(questionIndex, 1)
+  },
   [COLLECTIONS_STORE.MUTATIONS.ADD_QUESTION]: function (state, {collectionSlug, questionStatement}) {
     const collection = state[collectionSlug]
     collection.questions.push(questionStatement)
