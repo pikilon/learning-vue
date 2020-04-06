@@ -47,7 +47,8 @@ export default Vue.extend({
     ...mapGetters([COLLECTIONS_STORE.GETTERS.RANDOM_QUESTIONS]),
     ...mapState({ collections: state => state.collections }),
     statementFontSize() {
-      if (!this.isText || !this.statement) return undefined
+      const dontAlterText = this.isEditing || !this.isText || !this.statement
+      if (dontAlterText) return undefined
       const BIGGEST_EM = 12;
       const BASE_EM = 1.25;
       const proportinalEm = _.round(BIGGEST_EM / this.statement.length, 2)
