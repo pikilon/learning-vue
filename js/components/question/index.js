@@ -46,6 +46,15 @@ export default Vue.extend({
   computed: {
     ...mapGetters([COLLECTIONS_STORE.GETTERS.RANDOM_QUESTIONS]),
     ...mapState({ collections: state => state.collections }),
+    statementFontSize() {
+      if (!this.isText || !this.statement) return undefined
+      const BIGGEST_EM = 12;
+      const BASE_EM = 1.25;
+      const proportinalEm = _.round(BIGGEST_EM / this.statement.length, 2)
+
+      if (proportinalEm > BASE_EM) return `font-size: ${proportinalEm}em`
+
+    },
     collection() { return this.collections[this.collectionSlug]},
     question() { return this.collection.questions[this.questionIndex]},
     answers() { return this[COLLECTIONS_STORE.GETTERS.RANDOM_QUESTIONS][this.collectionSlug].questions.map(question => question.answer) },

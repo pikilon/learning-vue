@@ -3,6 +3,7 @@ import { QUESTION_TYPES } from "../../constants.js"
 const block = 'question'
 const selectors = {
   block,
+  modifier: `${block}--`,
   preview: `${block}__preview`,
   innerTitle: `${block}__innerTitle`,
   evaluation: `${block}__evaluation`,
@@ -10,7 +11,7 @@ const selectors = {
 const s = selectors
 
 export const template = /*html*/ `
-<v-card :class="['mx-auto', '${s.block}', '${s.block}--' + type ]" max-width="400">
+<v-card :class="['mx-auto', '${s.block}', '${s.modifier}' + type ]" max-width="400">
   <div class="${s.preview}" :style="styleColor">
 
     <v-card-text v-if="evaluation" class="${s.evaluation} text-right" >
@@ -21,7 +22,7 @@ export const template = /*html*/ `
 
     <v-img v-if="imageStatement" class="white--text align-end" height="200px" :src="imageStatement" />
 
-    <v-card-title v-else class="${s.innerTitle}">
+    <v-card-title v-else class="${s.innerTitle}" :style="statementFontSize">
       {{title}}
     </v-card-title>
   </div>
@@ -78,12 +79,19 @@ export const template = /*html*/ `
 export const style = /*css*/`
   .${s.preview} {
     min-height: 10em;
+    display: flex;
+    justify-content: center;
   }
   .${s.innerTitle} {
-    color: white;
-    mix-blend-mode: exclusion;
+    line-height: normal;
+
   }
+    .${s.modifier}color .${s.innerTitle} {
+      color: white;
+      mix-blend-mode: exclusion;
+    }
   .${s.evaluation} {
     position: absolute;
+    z-index: 1;
   }
 `
