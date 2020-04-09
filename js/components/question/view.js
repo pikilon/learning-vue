@@ -36,7 +36,7 @@ export const template = /*html*/ `
         <v-color-picker v-if="isColor" show-swatches hide-inputs v-model="statement" />
 
         <v-text-field v-if="isImage" v-model="imageStatement" type="text" label="Question Statement"
-          placeholder="Image Url: https://cdn.vuetifyjs.com/images/cards/docks.jpg" :rules="[imageError]" :error="!!imageError"  />
+          placeholder="Image Url: https://cdn.vuetifyjs.com/images/cards/docks.jpg" :rules="[(imageError || false)]" />
 
         <v-text-field v-if="isText" v-model="statement" type="text" label="Question Statement"
           placeholder="EG: How Many days has September" />
